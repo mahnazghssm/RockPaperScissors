@@ -9,62 +9,51 @@ from typing import List
 
 
 class RockpaperScissors:
-    """main class for Rock Paper Scissors game."""
+    """Main class for Rock Paper Scissors game."""
     def __init__(self, name: str):
         self.name: str = name
         self.choices: List[str] = ["rock", "paper", "scissors"]
 
     def user_choice(self) -> str:
-        user_input: str = input(f"Dear {self.name} please choose from {self.choices}")
-        if user_input.lower() in self.choices:
-            return user_input.lower()
-        
-        print (f"Invalid input. please chooose from {self.choices}")
-        return self.user_choice()
-    
-    def computer_choice (self) -> str:
-        """Get computer choice randomly from choices: Rock , Paper, Scissors."""
-        computer_input = random.choice(self.choices)
-        return computer_input
-    
-    def winner_roles (self, user_input: str , computer_input: str) -> str:
-        """Decide the winner of the game based on user and computer choices.
+        while True:
+            user_input: str = input(f"Dear {self.name}, please choose from {self.choices}: ").lower()
+            if user_input in self.choices:
+                return user_input
+            print(f"Invalid input. Please choose from {self.choices}")
 
-        :param user_input: The choice of the user
-        :param computer_input: The choice of the computer
-        :return: the result of the game. (who won)
-        """
+    def computer_choice(self) -> str:
+        """Get computer choice randomly from choices: Rock, Paper, Scissors."""
+        return random.choice(self.choices)
+
+    def winner_roles(self, user_input: str, computer_input: str) -> str:
+        """Decide the winner of the game based on user and computer choices."""
         if user_input == computer_input:
-            return "it is a tie!"
-        
-        winner_competition: List[tuple[str, str]] = [("rock", "scissors"), ("paper", "rock"), ("scissors", "paper")]
-        for win in winner_competition:
-            if (user_input == win[0]) & (computer_input == win[1]):
-                return "Congradualtions! You won!"
+            return "It's a tie!"
 
-        return "Oh no! Computer won"
-    
+        winner_combinations: List[tuple[str, str]] = [
+            ("rock", "scissors"),
+            ("paper", "rock"),
+            ("scissors", "paper")
+        ]
+        for win in winner_combinations:
+            if (user_input == win[0]) and (computer_input == win[1]):
+                return "Congratulations! You won!"
+
+        return "Oh no! The computer won!"
+
     def play(self):
-        """play the game.
-        - Get user choice.
-        - Get computer choice.
-        - Decide the winner
-        - print the result.
-        """
-        user_choice = self.user_choice()
-        computer_choice = self.computer_choice()
-        print(f"computer:{computer_choice}")
-        print(self.winner_roles(user_choice, computer_choice))
+        """Play the game."""
+        user_pick = self.user_choice()
+        computer_pick = self.computer_choice()
+        print(f"Computer: {computer_pick}")
+        print(self.winner_roles(user_pick, computer_pick))
 
 
 if __name__ == "__main__":
-    game = RockpaperScissors("mahnaz")
-
-while True:
-    #play again
-    game.play()
-
-    continue_game = input("Do you want to play it again? (Enter any key to play again, Enter q to exit)")
-    if continue_game.lower() == "q":
-        print("Goodbye!")
-        break
+    game = RockpaperScissors("Mahnaz")
+    while True:
+        game.play()
+        continue_game = input("Do you want to play again? (Enter any key to continue, 'q' to quit): ")
+        if continue_game.lower() == "q":
+            print("Goodbye!")
+            break
