@@ -49,3 +49,7 @@ Congratulations! You won!
 
 Do you want to play again? (Enter any key to play again, or q to exit):
 ```
+
+## License
+
+This project is licensed under the MIT License.
